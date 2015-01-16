@@ -15,9 +15,9 @@ from report.views import htsql
 # Create your tests here.
 class ReportJsonTest(TestCase):
     def setUp(self):
-        self.access_token = 'CAACEdEose0cBAMVrY4blvqG0C1zFGzn2oEmCAGAnIpwzNSQp2v9PiAdhZBOEic8q7FcAfVzbBWo70nnY1Bvgr32jowEKuRVYXt7h7rrB7vK8sGs8Kxut3fNl38xeLT0wNZBPQGqag9bG8rKemhfptb3XqtvJEXDdZAcn4jZCeUNvZClf120oZAPHZAZAfriV3fK0wk6QOfkw6gx8LSPpDR1K'
-        self.fb_page_id = '537081059740179'
-        self.fb_post_id = '537081059740179_566797693435182'
+        self.access_token = ''
+        self.fb_page_id = ''
+        self.fb_post_id = ''
 
         self.producer1 = User.objects.create_user('producer1', password='123', post_freq=1, transactional_ratio=0.5)
         self.partner = User.objects.create_user('partner', password='123', post_freq=1, transactional_ratio=0.5, autoschedule=True)
