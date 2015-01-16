@@ -1,0 +1,41 @@
+{% extends "friends/base.j.html" %}
+
+
+{% block friends_content %}
+
+  {% if list %}
+
+    <ul class="unstyled friends">
+    {% for item in list %}
+
+      {% if friend_attr %}
+        {% set friend = item|attr(friend_attr) %}
+      {% else %}
+        {% set friend = item %}
+      {% endif %}
+
+      <li class="friend{% if friends_nav_active=='incoming_requests' %} new{%endif %}">
+      {% block friend scoped %}
+        <img src="{{ friend.get_profile().avatar_small }}" width="40" height="40" />
+
+        <a class="user"
+           href="{{ friend.get_profile().get_absolute_url() }}">
+          {{ friend.get_full_name() }}
+        </a>
+      {% endblock %}
+
+        <div class="controls">
+        {% block controls scoped %}{% endblock %}
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+
+    <section>
+    {% block empty_list %}
+      <p>{{ _('Empty.') }}</p>
+    {% endblock %}
+    </section>
+  {% endif %}
+{% endblock %}

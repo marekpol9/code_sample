@@ -1,0 +1,38 @@
+{% extends "friends/list_base.j.html" %}
+
+{% set friends_nav_active='friends' %}
+{% set list = friends %}
+
+
+{% block controls %}
+
+    <a class="btn small default"
+       href="{{ url('messages.compose_to', friend.id) }}">
+      {{ _("Send a Message") }}
+    </a>
+    <a class="btn ajaxy small danger"
+       href="{{ url('friends.friendship_delete', friend.id) }}">
+      {{ _("Unfriend") }}
+    </a>
+{% endblock %}
+
+
+{% block empty_list %}
+  {% set search_url=url('friends.search') %}
+  <p class="empty">{% trans %}You don't have friends. Use our <a href="{{ search_url }}">search</a>.{% endtrans %}</p>
+{% endblock %}
+
+
+<script>
+{% block js_ready %}
+
+  // TODO remove!
+  $('a.ajaxy').click(function() {
+    var $a = $(this);
+    $.get($a.attr('href'), function(data) {
+      $a.parent().html(data.message);
+    });
+    return false;
+  });
+{% endblock %}
+</script>

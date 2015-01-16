@@ -1,0 +1,17 @@
+{% extends "friends/list_base.j.html" %}
+
+{% set friends_nav_active='outcoming_requests' %}
+
+{% set list = friendship_requests %}
+{% set friend_attr = 'to_user' %}
+
+
+{% block controls %}
+  <a class="ajaxy btn small danger"
+     href="{{ url('friends.friendship_cancel', item.to_user.id) }}">{{ _('Cancel') }}</a>
+{% endblock %}
+
+
+{% block empty_list %}
+  <p class="empty">{{ _('Empty.') }}</p>
+{% endblock %}

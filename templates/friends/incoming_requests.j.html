@@ -1,0 +1,24 @@
+{% extends "friends/list_base.j.html" %}
+
+{% set friends_nav_active='incoming_requests' %}
+
+{% set list = friendship_requests %}
+{% set friend_attr = 'from_user' %}
+
+
+{% block controls %}
+
+  <a class="ajaxy btn"
+     href="{{ url('friends.friendship_accept', item.from_user.id) }}">
+    {{ _("Accept") }}
+  </a>
+  <a class="ajaxy btn danger"
+     href="{{ url('friends.friendship_decline', item.from_user.id) }}">
+    {{ _("Reject") }}
+  </a>
+{% endblock %}
+
+
+{% block empty_list %}
+  <p class="empty">{{ _("Empty.") }}</p>
+{% endblock %}

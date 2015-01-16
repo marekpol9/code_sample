@@ -1,0 +1,41 @@
+{% extends "plain.j.html" %}
+
+{% import "nav.j.macro" as nav %}
+{% set section = "friends" %}
+
+
+{% block title %}{{ _("Friends") }}{% endblock %}
+
+
+{% block content %}
+
+  <div class="page-header tabbed">
+    <h2>{{ _("Friends") }}</h2>
+
+    {% set friends_nav=[
+      ("friends", url("friends.view_friends"), _("Friends"))
+    ] %}
+
+    {% if user.invitations_to.count() %}
+      {% set friends_nav=friends_nav +
+        [('incoming_requests', url('friends.view_incoming_requests'), _('Incoming requests'))] %}
+    {% endif %}
+
+    {% if user.invitations_from.count() %}
+      {% set friends_nav=friends_nav +
+        [('outcoming_requests', url('friends.view_outcoming_requests'), _('Requests Sent'))] %}
+    {% endif %}
+
+    {% set friends_nav=friends_nav +
+      [('search', url('friends.search'), _("Search"))] %}
+
+    {% set friends_nav_active=friends_nav_active|default('home') %}
+
+    {{ nav.tabs(friends_nav, friends_nav_active) }}
+  </div>
+  <div id="friends" class="tab-content">
+    <div class="tab-pane active">
+      {% block friends_content %}{% endblock %}
+    </div>
+  </div>
+{% endblock %}

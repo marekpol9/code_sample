@@ -1,0 +1,54 @@
+{% extends "friends/list_base.j.html" %}
+
+{% import "forms.j.macro" as forms %}
+{% import "friendship_controls.j.macro" as friendship_controls %}
+
+{% set friends_nav_active='search' %}
+{% set list = user_list %}
+
+
+{% block friends_content %}
+  <section>
+  <form id="friend-search-form" action="" method="post">
+    {{ csrf() }}
+    {{ form.query }}
+    <input type="submit" value="{{ _('Search') }}" class="btn default" />
+  </form>
+  </section>
+
+  {% if request.method == 'POST' and not form.errors %}
+
+    <section>
+      <h2>Results</h2>
+    </section>
+    {{ super() }}
+  {% endif %}
+{% endblock %}
+
+
+
+{% block controls %}
+  {% import "friendship_controls.j.macro" as friendship_controls %}
+  {{ friendship_controls.friendship_controls(user, friend) }}
+{% endblock %}
+
+
+{% block empty_list %}
+  {{ _('No matches.') }}
+{% endblock %}
+
+
+<script>
+{% block js_ready %}
+  $('.card:nth-child(odd)').css('clear', 'left');
+
+  // TODO remove!
+  $('a.ajaxy').click(function() {
+    var $a = $(this);
+    $.get($a.attr('href'), function(data) {
+        $a.parent().html(data.message);
+    });
+    return false;
+  });
+{% endblock %}
+</script>

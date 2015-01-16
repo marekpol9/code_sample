@@ -1,0 +1,59 @@
+@import "bootstrap/variables.less";
+@import "bootstrap/mixins.less";
+
+#friends {
+
+  .friend {
+    .clearfix();
+    position: relative;
+    padding: 9px 20px;
+    line-height: 20px;
+
+    img {
+      .border-radius(3px);
+      .box-shadow();
+      float: left;
+      margin-right: 9px;
+    }
+
+    .user {
+      line-height: 40px;
+      font-weight: bold;
+    }
+
+    .controls {
+      white-space: nowrap;
+      line-height: 40px;
+      display: none;
+      position: absolute;
+      top: 9px;
+      right: 20px;
+
+      p {
+        display: inline;
+      }
+      .alert-actions {
+        display: inline;
+      }
+    }
+
+    &:hover, &.active {
+      background: #f1f1f1;
+
+      .controls {
+        display: block;
+      }
+    }
+
+    &.new {
+      background: #fffbe9;
+      &:hover {
+        background: #f2ead8;
+      }
+    }
+  }
+}
+
+#friend-search-form {
+  margin-bottom: 0 !important;
+}

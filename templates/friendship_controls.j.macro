@@ -1,0 +1,36 @@
+{% macro friendship_controls(user, other_user) -%}
+{% if not user == other_user %}
+  {% if not are_friends(user, other_user) %}
+    {% if is_invited(user, other_user) %}
+      <p>
+        Your friendship request waiting for confirmation.
+      </p>
+      <div class="alert-actions">
+        <a href="{{ url('messages.compose_to', other_user.id) }}" class="btn">{{ _('Message') }}</a>
+      </div>
+    {% elif not is_invited(other_user, user) %}
+      <a href="{{ url('friends.friendship_request', other_user.id) }}" class="btn ajaxy">{{ _('Add as Friend') }}</a>
+      <a href="{{ url('messages.compose_to', other_user.id) }}" class="btn">{{ _('Message') }}</a>
+    {% endif %}
+  {% else %}
+    <p>
+      You and {{ other_user.first_name }} are friends now.
+    </p>
+    <div class="alert-actions">
+      <a href="{{ url('friends.friendship_delete', other_user.id) }}" class="btn ajaxy">{{ _('Remove from Friends') }}</a>
+      <a href="{{ url('messages.compose_to', other_user.id) }}" class="btn">{{ _('Message') }}</a>
+    </div>
+  {% endif %}
+
+  {% if is_invited(other_user, user) %}
+    <p>
+      {{ other_user.first_name }} is invited you to be friends.
+    </p>
+    <div class="alert-actions">
+      <a href="{{ url('friends.friendship_accept', other_user.id) }}" class="btn ajaxy">{{ _('Accept') }}</a>
+      <a href="{{ url('friends.friendship_decline', other_user.id) }}" class="btn ajaxy">{{ _('Decline') }}</a>
+      <a href="{{ url('messages.compose_to', other_user.id) }}" class="btn">{{ _('Message') }}</a>
+    </div>
+  {% endif %}
+{% endif %}
+{%- endmacro %}
